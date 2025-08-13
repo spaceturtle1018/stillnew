@@ -113,7 +113,7 @@
             }
             
             try {
-                const response = await fetch('http://localhost:8000/api/fortune', {
+                const response = await fetch('Stopmakingaccount.pythonanywhere.com', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({name, birthdate})
@@ -141,7 +141,7 @@
         
         async function getStats() {
             try {
-                const response = await fetch('http://localhost:8000/api/stats');
+                const response = await fetch('Stopmakingaccount.pythonanywhere.com');
                 const data = await response.json();
                 
                 const statsHtml = `
