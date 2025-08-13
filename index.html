@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>오늘의 운세</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; }
+        .fortune-card { background: #f0f0f0; padding: 20px; margin: 10px 0; border-radius: 10px; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🔮 오늘의 운세</h1>
+    <input type="text" id="name" placeholder="이름" />
+    <input type="date" id="birthdate" />
+    <button onclick="getFortune()">운세 보기</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        async function getFortune() {
+            const name = document.getElementById('name').value;
+            const birthdate = document.getElementById('birthdate').value;
+            
+            const response = await fetch('http://127.0.0.1:5000/api/fortune', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name, birthdate})
+            });
+            
+            const data = await response.json();
+            document.getElementById('result').innerHTML = `
+                <div class="fortune-card">
+                    <h2>${data.name}님의 오늘 운세</h2>
+                    <p>💕 연애운: ${data.love}</p>
+                    <p>💼 직장운: ${data.career}</p>
+                    <p>🏃 건강운: ${data.health}</p>
+                    <p>🎲 행운의 숫자: ${data.lucky_number}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
